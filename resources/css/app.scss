@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .menu-over {
+        color: #221144;
+    }
+
+    .yellow {
+        color: #fed10e;
+    }
+}
+
+
+@font-face {
+    font-family: 'ITC Garamond';
+    src: url('./fonts/itc-garamond-std.otf') format('woff2'),
+        url('./fonts/itc-garamond-std.otf') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ITC Garamond';
+    src: url('./fonts/itc-garamond-std-bold-condensed.otf') format('woff2'),
+        url('./fonts/itc-garamond-std-bold-condensed.otf') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: 'ITC Garamond' !important;
+}
+
+.back-top {
+    background-color: #221144;
+}
+
+.border-back-top {
+    border-color: #221144;
+}
+
+.back-purple {
+    background-color: #6633BB;
+}
+
+.back-yellow {
+    background-color: #fed10e;
+}
+
+.back-page {
+    background-color: #F1EAE2;
+}
