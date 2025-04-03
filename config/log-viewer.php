@@ -61,7 +61,7 @@ return [
     |
     */
 
-    'timezone' => null,
+    'timezone' => "America/Monterrey",
 
     /*
     |--------------------------------------------------------------------------
@@ -116,16 +116,16 @@ return [
         //     ],
         // ],
         //
-        // 'production' => [
-        //     'name' => 'Production',
-        //     'host' => 'https://example.com/log-viewer',
-        //     'auth' => [      // Example of Bearer token auth
-        //         'token' => env('LOG_VIEWER_PRODUCTION_TOKEN'),
-        //     ],
-        //     'headers' => [
-        //         'X-Foo' => 'Bar',
-        //     ],
-        // ],
+        'production' => [
+            'name' => 'Production',
+            'host' => 'https://directorio.dulcehalloween.com/log-viewer',
+            'auth' => [      // Example of Bearer token auth
+                'token' => env('LOG_VIEWER_PRODUCTION_TOKEN'),
+            ],
+            'headers' => [
+                'X-Foo' => 'Bar',
+            ],
+        ],
     ],
 
     /*
