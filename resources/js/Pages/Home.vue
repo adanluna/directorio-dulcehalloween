@@ -65,7 +65,7 @@ library.add(faMagnifyingGlass)
                 <h2 class="mb-10 text-4xl tracking-tight font-extrabold text-gray-900">¿Qué es Directorio Dulce Halloween?</h2>
                 <p class="font-light text-gray-800 sm:text-lg pb-6">Directorio Dulce Halloween, es sabor, aroma, calidad, es pasión por las cosas bien hechas, es orgullo que va de abuelos a padres, a hĳos y a nietos, lo Directorio Dulce Halloween, esta bien hecho.</p>
                 <p class="font-bold text-gray-800 sm:text-lg pb-6">Quiero aparecer en Directorio Dulce Halloween. Inscríbete es muy sencillo</p>
-                <PrimaryButton @click="" color="#fff" bgcolor="#6A1090FF">
+                <PrimaryButton :href="route('inscripcion')" color="#fff" bgcolor="#6A1090FF">
                     Inscríbete ahora
                 </PrimaryButton>
             </div>
