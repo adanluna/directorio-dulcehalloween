@@ -16,7 +16,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laraveles/spanish": "^1.5",
-        "opcodesio/log-viewer": "^3.10",
+        "opcodesio/log-viewer": "^3.15",
         "tightenco/ziggy": "2.0",
         "timothyasp/nova-color-field": "^2.0",
         "trinityrank/google-map-with-autocomplete": "^1.0"
