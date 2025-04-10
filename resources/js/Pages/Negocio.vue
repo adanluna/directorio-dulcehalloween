@@ -19,11 +19,11 @@ library.add({ faWhatsapp, faFacebook, faTwitter, faTiktok, faInstagram })
                     <Link class="underline" :href="route('negocios', { categoria: negocio.categoria.slug })">{{ negocio.categoria.nombre }}</Link> /
                     <Link class="underline" :href="route('negocios', { categoria: negocio.categoria.slug, subcategoria: negocio.subcategoria.slug })">{{ negocio.subcategoria.nombre }}</Link>
                 </h2>
-                <h2 class="mb-3 mt-2 text-2xl md:text-4xl tracking-tight font-extrabold text-purple-800">{{ negocio.nombre }}</h2>
+                <h2 class="mb-3 mt-2 text-2xl md:text-4xl tracking-tight font-extrabold text-purple-800 garamond">{{ negocio.nombre }}</h2>
             </div>
         </div>
         <div class="grid grid-col-1 md:grid-flow-col md:auto-cols-auto">
-            <div v-for="(item, index) in photos" :key="index" class="bg-cover bg-center h-[300px] sm:h-128" :style="{ backgroundImage: `url(/storage/${item})` }">
+            <div v-for="(item, index) in photos" :key="index" class="bg-cover bg-center h-[300px] sm:h-128" :style="{ backgroundImage: `url(${$urlImages + item})` }">
             </div>
         </div>
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-10 lg:px-0 ">
@@ -32,7 +32,7 @@ library.add({ faWhatsapp, faFacebook, faTwitter, faTiktok, faInstagram })
             <div class="grid md:grid-cols-2 grid-cols-1 gap-4 my-10">
                 <div>
                     <div class="px-0">
-                        <h3 class="text-xl font-semibold leading-7 text-gray-900">Información General</h3>
+                        <h3 class="text-xl font-semibold leading-7 text-gray-900 garamond">Información General</h3>
                     </div>
                     <div class="mt-6 border-t border-gray-100">
                         <dl class="divide-y divide-gray-100">
@@ -65,7 +65,7 @@ library.add({ faWhatsapp, faFacebook, faTwitter, faTiktok, faInstagram })
                                     </a>
                                 </dd>
                             </div>
-                            <div class="py-6 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
+                            <div v-if="negocio.facebook !== null || negocio.twitter !== null || negocio.instagram !== null || negocio.tiktok !== null" class="py-6 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
                                 <dt class="font-medium leading-6 text-gray-900">Redes Sociales</dt>
                                 <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                                     <div class="flex">
@@ -82,14 +82,16 @@ library.add({ faWhatsapp, faFacebook, faTwitter, faTiktok, faInstagram })
                 <!-- ... -->
                 <div v-if="negocio.latitude !== null">
                     <div class="px-0">
-                        <h3 class="text-xl font-semibold leading-7 text-gray-900">Ubicación</h3>
+                        <h3 class="text-xl font-semibold leading-7 text-gray-900 garamond">Ubicación</h3>
                     </div>
                     <div class="mt-6 border-t border-gray-100">
                         <dl class="divide-y divide-gray-100">
                             <div class="sm:py-6 px-0">
-                                <GoogleMap api-key="AIzaSyCCXvzPtv4i8A30vcaFm5BAejmwW3ZxUaE" mapId="mapa_negocio" style="width: 100%; height: 500px" :center="{ lat: parseFloat(negocio.latitude), lng: parseFloat(negocio.longitude) }" :zoom="18">
-                                    <AdvancedMarker :options="{ position: { lat: parseFloat(negocio.latitude), lng: parseFloat(negocio.longitude) } }" />
-                                </GoogleMap>
+                                <a :href="`https://www.google.com/maps/search/?api=1&query=${parseFloat(negocio.latitude)}%2C${parseFloat(negocio.longitude)}`" target="_blank">
+                                    <img style="min-width: 100%;" :src="`https://maps.googleapis.com/maps/api/staticmap?center=${parseFloat(negocio.latitude)},${parseFloat(negocio.longitude)}&zoom=16&size=600x600&maptype=roadmap
+                                    &markers=color:red%7C${parseFloat(negocio.latitude)},${parseFloat(negocio.longitude)}
+                                    &key=${api_key}`" />
+                                </a>
                             </div>
                         </dl>
                     </div>
@@ -138,6 +140,7 @@ export default {
     },
     data() {
         return {
+            api_key: import.meta.env.VITE_GMAPS_API_KEY
         }
     },
     methods: {

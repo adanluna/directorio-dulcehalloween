@@ -15,7 +15,7 @@ library.add(faMagnifyingGlass)
     <section class="border-t border-gray-200">
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-10 lg:px-0 ">
             <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-10 flex flex-col items-center">
-                <h2 class="mb-3 text-4xl tracking-tight font-extrabold text-purple-800">{{ categoria.nombre }}</h2>
+                <h2 class="mb-3 text-4xl tracking-tight font-extrabold text-purple-800 garamond">{{ categoria.nombre }}</h2>
                 <ul class="subcategorias mt-3" v-if="subcategorias.length > 0">
                     <li class="mr-6">
                         <Link :href="route('negocios', { 'categoria': categoria.slug })" :class="(subcategoria == null) ? 'font-bold underline' : ''" class="text-black hover:text-purple-800">Todas</Link>

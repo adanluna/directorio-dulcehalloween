@@ -7,23 +7,29 @@ use App\Models\Categoria;
 use App\Models\Negocio;
 use App\Models\Subcategoria;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\ImageManager;
 
 class WebController extends Controller
 {
     private $paginate = 25;
+    private $image_size = [400, 300];
+    private $folder = 'negocios';
 
     public function index(Request $request)
     {
         $categorias = Categoria::all();
 
         $recientes = Negocio::with('categoria')->with('subcategoria')->Activo()
-        ->Aprobado()->orderBy('created_at', 'desc')->limit(6)->get();
+            ->Aprobado()->orderBy('created_at', 'desc')->limit(6)->get();
 
         return Inertia::render('Home', [
             'categorias' => $categorias,
@@ -36,10 +42,10 @@ class WebController extends Controller
         $categorias = Categoria::all();
 
         $negocios = Negocio::with('categoria')->with('subcategoria')
-                    ->Activo()
-                    ->Aprobado()
-                    ->Buscar($request->get('q'))
-                    ->orderBy('created_at', 'desc')->paginate($this->paginate)->withQueryString();
+            ->Activo()
+            ->Aprobado()
+            ->Buscar($request->get('q'))
+            ->orderBy('created_at', 'desc')->paginate($this->paginate)->withQueryString();
 
         return Inertia::render('Buscador', [
             'q' => $request->get('q'),
@@ -61,11 +67,11 @@ class WebController extends Controller
             }
         }
         $negocios = Negocio::with('categoria')->with('subcategoria')
-                    ->Activo()
-                    ->Aprobado()
-                    ->CategoriaScope($categoria->id)
-                    ->SubcategoriaScope(($subcategoria_slug != '') ? $subcategoria->id : null)
-                    ->orderBy('created_at', 'desc')->paginate($this->paginate)->withQueryString();
+            ->Activo()
+            ->Aprobado()
+            ->CategoriaScope($categoria->id)
+            ->SubcategoriaScope(($subcategoria_slug != '') ? $subcategoria->id : null)
+            ->orderBy('created_at', 'desc')->paginate($this->paginate)->withQueryString();
 
         $subcategorias = Subcategoria::where('categoria_id', $categoria->id)->get();
 
@@ -81,7 +87,7 @@ class WebController extends Controller
     {
 
         $negocio = Negocio::where('slug', $negocio_slug)->Activo()
-        ->Aprobado()->with('categoria')->with('subcategoria')->first();
+            ->Aprobado()->with('categoria')->with('subcategoria')->first();
 
         if ($negocio == null) {
             abort(404);
@@ -112,7 +118,7 @@ class WebController extends Controller
         ]);
     }
 
-    public function inscripcionCreate(Request $request): RedirectResponse
+    public function inscripcionCreate(Request $request)
     {
         $maxfile = 1024 * 2;
         $this->validate($request, [
@@ -136,43 +142,32 @@ class WebController extends Controller
             'foto5' => "max:$maxfile",
         ]);
 
-        $data = request()->all();
+        $data = request()->except(['direccion_en_mapa', 'foto1', 'foto2', 'foto3', 'foto4', 'foto5']);
         $data['categoria_id'] = $data['categoria'];
         $data['subcategoria_id'] = $data['subcategoria'];
         unset($data["categoria"]);
         unset($data["subcategoria"]);
-        unset($data["direccion_en_mapa"]);
-        unset($data["foto1"]);
-        unset($data["foto2"]);
-        unset($data["foto3"]);
-        unset($data["foto4"]);
-        unset($data["foto5"]);
 
         $negocio = Negocio::create($data);
 
         if ($request->hasFile('foto1')) {
-            $foto_path = $request->file('foto1')->store('negocios', 'public');
-            $this->optimizeImage($foto_path);
+            $foto_path = $this->image('foto1');
             $negocio->foto1 = $foto_path;
         }
         if ($request->hasFile('foto2')) {
-            $foto_path = $request->file('foto2')->store('negocios', 'public');
-            $this->optimizeImage($foto_path);
+            $foto_path = $this->image('foto2');
             $negocio->foto2 = $foto_path;
         }
         if ($request->hasFile('foto3')) {
-            $foto_path = $request->file('foto3')->store('negocios', 'public');
-            $this->optimizeImage($foto_path);
+            $foto_path = $this->image('foto3');
             $negocio->foto3 = $foto_path;
         }
         if ($request->hasFile('foto4')) {
-            $foto_path = $request->file('foto4')->store('negocios', 'public');
-            $this->optimizeImage($foto_path);
+            $foto_path = $this->image('foto4');
             $negocio->foto4 = $foto_path;
         }
         if ($request->hasFile('foto5')) {
-            $foto_path = $request->file('foto5')->store('negocios', 'public');
-            $this->optimizeImage($foto_path);
+            $foto_path = $this->image('foto5');
             $negocio->foto5 = $foto_path;
         }
 
@@ -185,10 +180,23 @@ class WebController extends Controller
         return to_route('inscripcion.gracias');
     }
 
-    private function optimizeImage($path)
+    private function image($name)
     {
-        $imgFile = ImageManager::imagick()->read(storage_path('app/public/').$path);
-        $imgFile->scale(width: 600);
+        if (!$image = request()->file($name)) {
+            return '';
+        }
+        $paths = $this->folder . '/' . str_replace('-', '', Str::uuid()) . '.webp';
+        $store = new ImageManager(Driver::class);
+        $store = $store->read($image->getPathName());
+
+        if ($this->image_size) {
+            $store->scaleDown($this->image_size[0], $this->image_size[1]);
+        }
+        $store = $store->toWebp(90);
+        (Storage::put($paths, (string)$store->toString()));
+        Storage::setVisibility($paths, 'public');
+
+        return $paths;
     }
 
     public function inscripcionGracias()

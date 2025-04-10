@@ -4,11 +4,11 @@ import { defineComponent, computed } from 'vue'
 </script>
 
 <template>
-    <Link :href="route('negocios', {categoria: item.slug})">
+    <Link :href="route('negocios', { categoria: item.slug })">
     <div class="text-center">
-        <div class="rounded-2xl h-64 bg-cover" :style="'background-image: url(/storage/' + item.fotografia + ');'">
+        <div class="rounded-2xl h-64 bg-contain bg-no-repeat bg-center" :style="'background-image: url(' + $urlImages + item.fotografia + ');'">
         </div>
-        <span class="block font-bold text-black text-2xl mt-2">{{ item.nombre }}</span>
+        <span class="block font-bold text-black text-3xl mt-2 garamond">{{ item.nombre }}</span>
     </div>
     </Link>
 </template>

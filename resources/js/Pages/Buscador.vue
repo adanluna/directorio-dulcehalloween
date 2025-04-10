@@ -15,7 +15,7 @@ library.add(faMagnifyingGlass)
     <section class="border-t border-gray-200">
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-10 lg:px-0 ">
             <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-16 flex flex-col items-center">
-                <h2 class="mb-3 text-4xl tracking-tight font-extrabold text-purple-800">Búsqueda de negocios</h2>
+                <h2 class="mb-3 text-4xl tracking-tight font-extrabold text-purple-800 garamond">Búsqueda de negocios</h2>
                 <form @submit.prevent="submit" class="md:w-full md:text-xl">
                     <input class="md:w-1/2 w-1/2 border-y border-l border-black rounded-l-full pl-6 pr-4 py-2" required v-model="form.q" placeholder="">
                     <button class="border text-white bg-purple-600 border-black rounded-r-full pl-6 pr-8 py-2" type="submit">

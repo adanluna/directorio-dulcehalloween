@@ -15,6 +15,10 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Panel;
 use Trinityrank\GoogleMapWithAutocomplete\TRMap;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Imagick\Driver;
 
 class Negocio extends Resource
 {
@@ -173,21 +177,23 @@ class Negocio extends Resource
     {
         return [
 
-            Image::make('Fotografía 1', 'foto1')
+            Image::make('Fotografía 13', 'foto1')
+                ->disk('s3')
                 ->path('negocios')
                 ->indexWidth(90)
                 ->detailWidth(300)
                 ->creationRules('file', 'max:3000')
                 ->updateRules('file', 'max:3000')
                 ->acceptedTypes('.jpeg,.jpg,.png')
-                ->storeAs(function (Request $request) {
-                    return sha1($request->foto1->getClientOriginalName()).'.'.$request->foto1->getClientOriginalExtension();
+                ->store(function (Request $request) {
+                    return ['foto1' => $this->s3Image($request, 'foto1')];
                 })
                 ->hideFromIndex()
                 ->deletable(true)
                 ->prunable(),
 
-                Image::make('Fotografía 2', 'foto2')
+            Image::make('Fotografía 2', 'foto2')
+                ->disk('s3')
                 ->path('negocios')
                 ->indexWidth(90)
                 ->detailWidth(300)
@@ -195,12 +201,13 @@ class Negocio extends Resource
                 ->updateRules('file', 'max:3000')
                 ->acceptedTypes('.jpeg,.jpg,.png')
                 ->storeAs(function (Request $request) {
-                    return sha1($request->foto2->getClientOriginalName()).'.'.$request->foto2->getClientOriginalExtension();
+                    return ['foto2' => $this->s3Image($request, 'foto2')];
                 })
                 ->deletable(true)
                 ->hideFromIndex()
                 ->prunable(),
             Image::make('Fotografía 3', 'foto3')
+                ->disk('s3')
                 ->path('negocios')
                 ->indexWidth(90)
                 ->detailWidth(300)
@@ -208,12 +215,13 @@ class Negocio extends Resource
                 ->updateRules('file', 'max:3000')
                 ->acceptedTypes('.jpeg,.jpg,.png')
                 ->storeAs(function (Request $request) {
-                    return sha1($request->foto3->getClientOriginalName()).'.'.$request->foto3->getClientOriginalExtension();
+                    return ['foto3' => $this->s3Image($request, 'foto3')];
                 })
                 ->deletable(true)
                 ->hideFromIndex()
                 ->prunable(),
             Image::make('Fotografía 4', 'foto4')
+                ->disk('s3')
                 ->path('negocios')
                 ->indexWidth(90)
                 ->detailWidth(300)
@@ -221,12 +229,13 @@ class Negocio extends Resource
                 ->updateRules('file', 'max:3000')
                 ->acceptedTypes('.jpeg,.jpg,.png')
                 ->storeAs(function (Request $request) {
-                    return sha1($request->foto4->getClientOriginalName()).'.'.$request->foto4->getClientOriginalExtension();
+                    return ['foto4' => $this->s3Image($request, 'foto4')];
                 })
                 ->deletable(true)
                 ->hideFromIndex()
                 ->prunable(),
-                Image::make('Fotografía 5', 'foto5')
+            Image::make('Fotografía 5', 'foto5')
+                ->disk('s3')
                 ->path('negocios')
                 ->indexWidth(90)
                 ->detailWidth(300)
@@ -234,12 +243,28 @@ class Negocio extends Resource
                 ->updateRules('file', 'max:3000')
                 ->acceptedTypes('.jpeg,.jpg,.png')
                 ->storeAs(function (Request $request) {
-                    return sha1($request->foto5->getClientOriginalName()).'.'.$request->foto5->getClientOriginalExtension();
+                    return ['foto5' => $this->s3Image($request, 'foto5')];
                 })
                 ->deletable(true)
                 ->hideFromIndex()
                 ->prunable(),
         ];
+    }
+
+    private function s3Image(Request $request, $image)
+    {
+        $image_size = [400, 300];
+        $image = $request->file($image);
+
+        $path = 'negocios/' . str_replace('-', '', Str::uuid()) . '.webp';
+        $store = new ImageManager(Driver::class);
+        $store = $store->read($image->getPathName());
+        $store->scaleDown($image_size[0], $image_size[1]);
+        $store = $store->toWebp(90);
+        (Storage::put($path, (string)$store->toString()));
+        Storage::setVisibility($path, 'public');
+
+        return $path;
     }
 
 

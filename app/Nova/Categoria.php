@@ -42,7 +42,8 @@ class Categoria extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'nombre'
+        'id',
+        'nombre'
     ];
 
     /**
@@ -59,19 +60,21 @@ class Categoria extends Resource
             Text::make('Nombre', 'nombre')
                 ->sortable()
                 ->rules('required', 'max:255'),
-                Color::make('Color de fondo', 'bgcolor')->chrome(),
-                Color::make('Color de texto', 'color')->compact(),
-                Image::make('Fotografía', 'fotografia')
-                ->path('categorias')
+            Color::make('Color de fondo', 'bgcolor')->chrome(),
+            Color::make('Color de texto', 'color')->compact(),
+            Image::make('Fotografía', 'fotografia')
+                ->disk('s3')
+                ->path('negocios')
                 ->indexWidth(90)
                 ->detailWidth(300)
                 ->creationRules('file', 'max:3000')
                 ->updateRules('file', 'max:3000')
-                ->acceptedTypes('.jpeg,.jpg,.png')
+                ->acceptedTypes('.jpeg,.jpg,.png,.webp')
                 ->storeAs(function (Request $request) {
-                    return sha1($request->fotografia->getClientOriginalName()).'.'.$request->fotografia->getClientOriginalExtension();
+                    return sha1($request->fotografia->getClientOriginalName()) . '.' . $request->fotografia->getClientOriginalExtension();
                 })
-                ->deletable(false)
+                ->deletable(true)
+                ->hideFromIndex()
                 ->prunable(),
 
             Boolean::make('Activo', 'activo')

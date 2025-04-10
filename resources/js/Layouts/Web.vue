@@ -14,10 +14,10 @@ import Menu from '@/Components/Menu.vue'
         <div class="px-5 py-8 sm:grid sm:grid-cols-3">
             <div class="flex justify-center"><img src="/images/logo.png" alt="" style="height:50px !important;" /></div>
             <span class="flex justify-center sm:justify-end items-center">
-                <a href="https://www.santiago.gob.mx/descargas/avisodeprivacidad.pdf" target="_blank" class="sm:ml-3 text-gray-500">
+                <a href="https://dulcehalloween.com/politicas-de-privacidad" target="_blank" class="sm:ml-3 text-gray-500">
                     Aviso de Privacidad
                 </a>
-                <a href="https://www.santiago.gob.mx/te_escuchamos" class="ml-3 text-gray-500">
+                <a href="" class="ml-3 text-gray-500">
                     Contáctanos
                 </a>
             </span>

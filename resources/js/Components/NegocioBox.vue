@@ -8,13 +8,13 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
     <div class="bg-gray-200">
         <div class="p-3" :style="'background-color:' + item.categoria.bgcolor + ';color:' + item.categoria.color + ';'">{{ item.categoria.nombre }} / {{ item.subcategoria.nombre }}</div>
         <div :style="'border-color:' + item.categoria.bgcolor + ';border-bottom-width: 6px;'">
-            <Link :href="route('negocio', item.slug)">
-            <div class="h-64 bg-cover" :style="'background-image: url(/storage/' + item.foto1 + ');'"></div>
+            <Link class="" :href="route('negocio', item.slug)">
+            <div class="h-64 bg-cover" :style="'background-image: url(' + $urlImages + item.foto1 + ');'"></div>
             </Link>
         </div>
         <div class="">
             <div class="p-5">
-                <Link :href="route('negocio', item.slug)"><span class="block font-bold text-black text-2xl">{{ item.nombre }}</span></Link>
+                <Link :href="route('negocio', item.slug)"><span class="block font-bold text-black text-2xl garamond">{{ item.nombre }}</span></Link>
                 <div class="py-3 text-sm text-purple-800">{{ item.horario }}<br>{{ item.horario_fin }}</div>
                 <div class="">{{ $filters.truncate(item.descripcion, 200, '...') }}</div>
                 <div class="pt-4">

@@ -39,6 +39,9 @@ createInertiaApp({
         app.config.warnHandler = () => null;
         app.config.productionTip = false;
 
+
+        app.config.globalProperties.$urlImages = "https://dulce-halloween.s3.amazonaws.com/"
+
         // Gobal Filters
         app.config.globalProperties.$filters = {
             truncate(text, length, suffix) {
