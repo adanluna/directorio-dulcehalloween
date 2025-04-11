@@ -13,7 +13,7 @@ library.add(faMagnifyingGlass)
     <Head title="Directorio Dulce Halloween" />
     <div class="">
         <section class="bg_color bg-center bg-cover">
-            <div class="flex flex-row h-128 items-center">
+            <div class="flex flex-row h-64 md:h-128 items-center">
 
             </div>
         </section>
