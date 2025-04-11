@@ -14,7 +14,7 @@ const props = defineProps({
     <section class="back-top">
         <nav class="flex justify-between p-3 px-4">
             <div class="flex justify-between items-center w-full">
-                <div class="w-3/6 sm:w-1/6">
+                <div class="w-2/6 sm:w-1/6">
                     <Link class="block max-w-max" :href="route('home')">
                     <ApplicationLogo />
                     </Link>
@@ -26,10 +26,9 @@ const props = defineProps({
                         </li>
                     </ul>
                 </div>
-                <div class="hidden lg:block w-1/6">
+                <div class="lg:w-1/6 mr-2">
                     <div class="flex items-center justify-end">
-                        <a :href="route('inscripcion')" class="px-6 py-3 text-lg font-medium text-white bg-gradient-to-br from-purple-600 to-purple-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Inscríbe tu negocio</a>
-
+                        <a :href="route('inscripcion')" class="px-3 py-2 md:px-6 md:py-3 text-sm md:text-lg font-medium text-white bg-gradient-to-br from-purple-600 to-purple-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Inscríbe tu negocio</a>
                     </div>
                 </div>
             </div>
@@ -40,6 +39,8 @@ const props = defineProps({
                 </svg>
             </button>
         </nav>
+
+        <!-- Menu mobile-->
         <div v-if="mobileNavOpen" class="fixed top-0 left-0 z-50 w-full h-full bg-gray-950 bg-opacity-50 drop-shadow-lg">
             <div class="fixed top-0 left-0 bottom-0 w-3/4 max-w-xs back-top">
                 <nav class="relative p-6 h-full overflow-y-auto">

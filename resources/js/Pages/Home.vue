@@ -34,7 +34,7 @@ library.add(faMagnifyingGlass)
     <section class="bg-purple-200 text-center">
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-10 lg:px-0 ">
             <h2 class="text-4xl tracking-tight font-extrabold text-purple-800 garamond"> Buscar Negocios</h2>
-            <p class="font-light mb-10 sm:text-lg">Por nombre o palabra clave</p>
+            <p class="font-light mb-4 md:mb-10 sm:text-lg">Por nombre o palabra clave</p>
             <div class="flex justify-center">
                 <form :action="route('buscar')" method="get" class="md:w-1/2 w-full md:text-2xl">
                     <input class="md:w-1/2 w-1/2 border-y border-l border-black rounded-l-full pl-6 pr-4 py-2" name="q" required placeholder="">
@@ -58,7 +58,7 @@ library.add(faMagnifyingGlass)
         </div>
     </section>
 
-    <div class=" bg-purple-100 py-12 sm:py-12 bg-right bg-contain bg-repeat" style="background-image: url('/images/fondo.jpg');">
+    <div class=" bg-purple-100 py-12 sm:py-12 bg-right bg-cover md:bg-contain md:bg-repeat" style="background-image: url('/images/fondo.jpg');">
         <div class="mx-auto md:max-w-4xl px-8 2xl:px-0 text-center">
             <div class="sm:basis-1/2 text-lg p-0 mb-28">
                 <h2 class="mb-6 text-4xl tracking-tight font-extrabold text-gray-900 garamond"> ¿Tienes un negocio para Halloween? 👻 🎃</h2>

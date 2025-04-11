@@ -15,8 +15,8 @@ library.add({ faWhatsapp, faFacebook, faTwitter, faTiktok, faInstagram })
             <div v-for="(item, index) in photos" :key="index" class="bg-cover bg-center h-[300px] sm:h-128" :style="{ backgroundImage: `url(${$urlImages + item})` }">
             </div>
         </div>
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-10 lg:px-0 ">
-            <h2 class="mb-3 mt-2 text-2xl md:text-4xl tracking-tight font-extrabold text-purple-800 garamond">{{ negocio.nombre }}</h2>
+        <div class="py-3 md:py-8 px-4 mx-auto max-w-screen-xl lg:py-10 lg:px-0 ">
+            <h2 class="mb-3 mt-2 text-3xl md:text-4xl tracking-tight font-extrabold text-purple-800 garamond">{{ negocio.nombre }}</h2>
             <h2 class="text-sm text-gray-800 pb-3">
                 <Link class="underline" :href="route('negocios', { categoria: negocio.categoria.slug })">{{ negocio.categoria.nombre }}</Link> /
                 <Link class="underline" :href="route('negocios', { categoria: negocio.categoria.slug, subcategoria: negocio.subcategoria.slug })">{{ negocio.subcategoria.nombre }}</Link>
@@ -29,29 +29,29 @@ library.add({ faWhatsapp, faFacebook, faTwitter, faTiktok, faInstagram })
                         <h3 class="text-xl font-semibold leading-7 text-gray-900 garamond">Información General</h3>
                     </div>
                     <div class="mt-6 border-t border-orange-300">
-                        <dl class="divide-y divide-purple-300">
-                            <div class="py-6 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
-                                <dt class="font-medium leading-6 text-gray-900">Horario</dt>
+                        <dl class="">
+                            <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
+                                <dt class="font-bold leading-6 text-gray-900">Horario</dt>
                                 <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ negocio.horario }}<br>{{ negocio.horario_fin }}</dd>
                             </div>
-                            <div class="py-6 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
-                                <dt class="font-medium leading-6 text-gray-900">Dirección</dt>
+                            <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
+                                <dt class="font-bold leading-6 text-gray-900">Dirección</dt>
                                 <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ negocio.direccion }}</dd>
                             </div>
-                            <div v-if="negocio.telefono !== null" class="py-6 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
-                                <dt class="font-medium leading-6 text-gray-900">Teléfono</dt>
+                            <div v-if="negocio.telefono !== null" class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
+                                <dt class="font-bold leading-6 text-gray-900">Teléfono</dt>
                                 <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ negocio.telefono }}</dd>
                             </div>
-                            <div v-if="negocio.negocio !== null" class="py-6 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
-                                <dt class="font-medium leading-6 text-gray-900">Correo</dt>
+                            <div v-if="negocio.negocio !== null" class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
+                                <dt class="font-bold leading-6 text-gray-900">Correo</dt>
                                 <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ negocio.email }}</dd>
                             </div>
-                            <div v-if="negocio.website !== null" class="py-6 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
-                                <dt class="font-medium leading-6 text-gray-900">Website</dt>
+                            <div v-if="negocio.website !== null" class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
+                                <dt class="font-bold leading-6 text-gray-900">Website</dt>
                                 <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ negocio.website }}</dd>
                             </div>
-                            <div v-if="negocio.whatsapp !== null" class="py-6 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
-                                <dt class="font-medium leading-6 text-gray-900">Contacto</dt>
+                            <div v-if="negocio.whatsapp !== null" class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
+                                <dt class="font-bold leading-6 text-gray-900">Contacto</dt>
                                 <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                                     <a :href="'https://wa.me/+52' + negocio.whatsapp" target="_blank" class="bg-green-300 hover:bg-green-400 text-gray-800 py-2 px-4 rounded-full inline-flex items-center">
                                         <font-awesome-icon :icon="['fab', 'whatsapp']" size="lg" />
@@ -59,8 +59,8 @@ library.add({ faWhatsapp, faFacebook, faTwitter, faTiktok, faInstagram })
                                     </a>
                                 </dd>
                             </div>
-                            <div v-if="negocio.facebook !== null || negocio.twitter !== null || negocio.instagram !== null || negocio.tiktok !== null" class="py-6 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
-                                <dt class="font-medium leading-6 text-gray-900">Redes Sociales</dt>
+                            <div v-if="negocio.facebook !== null || negocio.twitter !== null || negocio.instagram !== null || negocio.tiktok !== null" class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
+                                <dt class="font-bold leading-6 text-gray-900">Redes Sociales</dt>
                                 <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                                     <div class="flex">
                                         <a v-if="negocio.facebook !== null" :href="negocio.facebook" class="ml-4"><font-awesome-icon size="2x" :icon="['fab', 'facebook']" /></a>
@@ -80,7 +80,7 @@ library.add({ faWhatsapp, faFacebook, faTwitter, faTiktok, faInstagram })
                     </div>
                     <div class="mt-6 border-t border-orange-300">
                         <dl class="divide-y divide-gray-100">
-                            <div class="sm:py-6 px-0">
+                            <div class="sm:py-4 px-0">
                                 <a :href="`https://www.google.com/maps/search/?api=1&query=${parseFloat(negocio.latitude)}%2C${parseFloat(negocio.longitude)}`" target="_blank">
                                     <img style="min-width: 100%;" :src="`https://maps.googleapis.com/maps/api/staticmap?center=${parseFloat(negocio.latitude)},${parseFloat(negocio.longitude)}&zoom=16&size=600x600&maptype=roadmap
                                     &markers=color:red%7C${parseFloat(negocio.latitude)},${parseFloat(negocio.longitude)}
