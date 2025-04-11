@@ -70,12 +70,6 @@ library.add(faMagnifyingGlass)
     </div>
 </template>
 
-<style scoped>
-.bg_color {
-    background-image: url(/images/portada.png);
-}
-</style>
-
 <script>
 export default {
     props: {
