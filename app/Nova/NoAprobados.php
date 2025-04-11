@@ -177,16 +177,16 @@ class NoAprobados extends Resource
     {
         return [
 
-            Image::make('Fotografía 13', 'foto1')
+            Image::make('Fotografía 1', 'foto1')
                 ->disk('s3')
                 ->path('negocios')
                 ->indexWidth(90)
                 ->detailWidth(300)
                 ->creationRules('file', 'max:3000')
                 ->updateRules('file', 'max:3000')
-                ->acceptedTypes('.jpeg,.jpg,.png')
+                ->acceptedTypes('.jpeg,.jpg,.png,.webp')
                 ->store(function (Request $request) {
-                    return ['foto1' => $this->s3Image($request, 'foto1')];
+                    return $this->s3Image($request->foto1);
                 })
                 ->hideFromIndex()
                 ->deletable(true)
@@ -199,9 +199,9 @@ class NoAprobados extends Resource
                 ->detailWidth(300)
                 ->creationRules('file', 'max:3000')
                 ->updateRules('file', 'max:3000')
-                ->acceptedTypes('.jpeg,.jpg,.png')
+                ->acceptedTypes('.jpeg,.jpg,.png,.webp')
                 ->storeAs(function (Request $request) {
-                    return ['foto2' => $this->s3Image($request, 'foto2')];
+                    return $this->s3Image($request->foto2);
                 })
                 ->deletable(true)
                 ->hideFromIndex()
@@ -213,9 +213,9 @@ class NoAprobados extends Resource
                 ->detailWidth(300)
                 ->creationRules('file', 'max:3000')
                 ->updateRules('file', 'max:3000')
-                ->acceptedTypes('.jpeg,.jpg,.png')
+                ->acceptedTypes('.jpeg,.jpg,.png,.webp')
                 ->storeAs(function (Request $request) {
-                    return ['foto3' => $this->s3Image($request, 'foto3')];
+                    return $this->s3Image($request->foto3);
                 })
                 ->deletable(true)
                 ->hideFromIndex()
@@ -227,9 +227,9 @@ class NoAprobados extends Resource
                 ->detailWidth(300)
                 ->creationRules('file', 'max:3000')
                 ->updateRules('file', 'max:3000')
-                ->acceptedTypes('.jpeg,.jpg,.png')
+                ->acceptedTypes('.jpeg,.jpg,.png,.webp')
                 ->storeAs(function (Request $request) {
-                    return ['foto4' => $this->s3Image($request, 'foto4')];
+                    return  $this->s3Image($request->foto4);
                 })
                 ->deletable(true)
                 ->hideFromIndex()
@@ -241,9 +241,9 @@ class NoAprobados extends Resource
                 ->detailWidth(300)
                 ->creationRules('file', 'max:3000')
                 ->updateRules('file', 'max:3000')
-                ->acceptedTypes('.jpeg,.jpg,.png')
+                ->acceptedTypes('.jpeg,.jpg,.png,.webp')
                 ->storeAs(function (Request $request) {
-                    return ['foto5' => $this->s3Image($request, 'foto5')];
+                    return $this->s3Image($request->foto5);
                 })
                 ->deletable(true)
                 ->hideFromIndex()
@@ -251,17 +251,18 @@ class NoAprobados extends Resource
         ];
     }
 
-    private function s3Image(Request $request, $image)
+    private function s3Image($image)
     {
+        if (!$image) {
+            return '';
+        }
         $image_size = [400, 300];
-        $image = $request->file($image);
-
         $path = 'negocios/' . str_replace('-', '', Str::uuid()) . '.webp';
         $store = new ImageManager(Driver::class);
         $store = $store->read($image->getPathName());
         $store->scaleDown($image_size[0], $image_size[1]);
         $store = $store->toWebp(90);
-        (Storage::put($path, (string)$store->toString()));
+        Storage::put($path, (string)$store->toString());
         Storage::setVisibility($path, 'public');
 
         return $path;

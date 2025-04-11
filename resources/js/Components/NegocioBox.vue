@@ -1,11 +1,21 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3'
-import { defineComponent, computed } from 'vue'
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+
+const props = defineProps({
+    item: {
+        type: Object,
+    },
+    white: {
+        type: Boolean,
+        default: true,
+    },
+});
+
 </script>
 
 <template>
-    <div class="bg-gray-200">
+    <div :class="(white) ? 'bg-white' : 'bg-gray-200'">
         <div class="p-3" :style="'background-color:' + item.categoria.bgcolor + ';color:' + item.categoria.color + ';'">{{ item.categoria.nombre }} / {{ item.subcategoria.nombre }}</div>
         <div :style="'border-color:' + item.categoria.bgcolor + ';border-bottom-width: 6px;'">
             <Link class="" :href="route('negocio', item.slug)">
@@ -26,12 +36,3 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
         </div>
     </div>
 </template>
-
-
-<script lang="ts">
-export default defineComponent({
-    props: {
-        item: Object,
-    }
-})
-</script>

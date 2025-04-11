@@ -15,8 +15,9 @@ const markerOptions = { position: center, gmpDraggable: true }
     <section class="border-t border-gray-200">
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-10 lg:px-0 ">
             <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-2 flex flex-col items-center">
-                <h2 class="mb-3 text-4xl tracking-tight font-extrabold text-purple-800">Inscribe tu negocio</h2>
-                <p class="text-gray-500 mb-6 text-base">Proporciona los datos de tu negocio para registrarte en Directorio Dulce Halloween y que mas personas conozcan tu negocio y sus servicios o productos. <br /><span class="font-bold text-black"><span class="text-purple-500 font-bold text-sm">*</span> Datos obligatorios.</span></p>
+                <h2 class="mb-3 text-5xl tracking-tight font-extrabold text-purple-800 garamond">Inscribe tu negocio</h2>
+                <p class="mb-6 text-xl">🎃 ¡Inscribe tu negocio <strong>GRATIS</strong> en el Directorio de Halloween! 👻 <br>Visibilidad. Clientes. Diversión. Todo en un solo lugar.</p>
+                <p class="mb-6 text-base">¡Solo proporciona los datos de tu negocio y listo!<br /><span class="font-bold text-black"><span class="text-purple-500 font-bold text-sm">*</span> Datos obligatorios.</span></p>
             </div>
             <form @submit.prevent="submit">
                 <fieldset :disabled="form.processing" style="display: contents;">
@@ -203,7 +204,7 @@ const markerOptions = { position: center, gmpDraggable: true }
 
                         <div class="border-b border-gray-900/10 pb-6">
                             <h2 class="text-base font-semibold leading-7 text-gray-900">Fotografías</h2>
-                            <p class="mt-1 text-sm leading-6 text-gray-600">Puedes subir hasta 5 fotografías en formato, JPG o PNG con un máximo de 2MB</p>
+                            <p class="mt-1 text-sm leading-6 text-gray-600">Puedes subir hasta 2 fotografías en formato, JPG o PNG con un máximo de 2MB</p>
 
                             <div class="mt-3">
                                 <label class="block text-sm leading-6 text-gray-900">Fotografía 1 <span class="text-purple-500 font-bold text-sm">*</span></label>
@@ -215,24 +216,6 @@ const markerOptions = { position: center, gmpDraggable: true }
                                 <label class="block text-sm leading-6 text-gray-900">Fotografía 2</label>
                                 <input type="file" @input="form.foto2 = $event.target.files[0]" />
                                 <div class="error" v-if="form.errors.foto2">{{ form.errors.foto2 }}</div>
-                            </div>
-
-                            <div class="mt-3">
-                                <label class="block text-sm leading-6 text-gray-900">Fotografía 3</label>
-                                <input type="file" @input="form.foto3 = $event.target.files[0]" />
-                                <div class="error" v-if="form.errors.foto3">{{ form.errors.foto3 }}</div>
-                            </div>
-
-                            <div class="mt-3">
-                                <label class="block text-sm leading-6 text-gray-900">Fotografía 4</label>
-                                <input type="file" @input="form.foto4 = $event.target.files[0]" />
-                                <div class="error" v-if="form.errors.foto4">{{ form.errors.foto4 }}</div>
-                            </div>
-
-                            <div class="mt-3">
-                                <label class="block text-sm leading-6 text-gray-900">Fotografía 5</label>
-                                <input type="file" @input="form.foto5 = $event.target.files[0]" />
-                                <div class="error" v-if="form.errors.foto5">{{ form.errors.foto5 }}</div>
                             </div>
                         </div>
 

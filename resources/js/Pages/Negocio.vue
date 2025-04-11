@@ -1,9 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
-import { GoogleMap, AdvancedMarker } from 'vue3-google-map'
 import NegocioBox from '@/Components/NegocioBox.vue';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { faWhatsapp, faFacebook, faTwitter, faTiktok, faInstagram } from '@fortawesome/free-brands-svg-icons'
 library.add({ faWhatsapp, faFacebook, faTwitter, faTiktok, faInstagram })
 
@@ -13,29 +11,25 @@ library.add({ faWhatsapp, faFacebook, faTwitter, faTiktok, faInstagram })
 
     <Head :title="negocio.nombre" />
     <section class="border-t border-gray-200">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:pt-10 lg:pb-8 lg:px-0 ">
-            <div class="mx-auto text-center">
-                <h2 class="text-sm text-gray-800">
-                    <Link class="underline" :href="route('negocios', { categoria: negocio.categoria.slug })">{{ negocio.categoria.nombre }}</Link> /
-                    <Link class="underline" :href="route('negocios', { categoria: negocio.categoria.slug, subcategoria: negocio.subcategoria.slug })">{{ negocio.subcategoria.nombre }}</Link>
-                </h2>
-                <h2 class="mb-3 mt-2 text-2xl md:text-4xl tracking-tight font-extrabold text-purple-800 garamond">{{ negocio.nombre }}</h2>
-            </div>
-        </div>
-        <div class="grid grid-col-1 md:grid-flow-col md:auto-cols-auto">
+        <div class="grid grid-col-2 md:grid-flow-col md:auto-cols-auto">
             <div v-for="(item, index) in photos" :key="index" class="bg-cover bg-center h-[300px] sm:h-128" :style="{ backgroundImage: `url(${$urlImages + item})` }">
             </div>
         </div>
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-10 lg:px-0 ">
-            {{ negocio.descripcion }}
+            <h2 class="mb-3 mt-2 text-2xl md:text-4xl tracking-tight font-extrabold text-purple-800 garamond">{{ negocio.nombre }}</h2>
+            <h2 class="text-sm text-gray-800 pb-3">
+                <Link class="underline" :href="route('negocios', { categoria: negocio.categoria.slug })">{{ negocio.categoria.nombre }}</Link> /
+                <Link class="underline" :href="route('negocios', { categoria: negocio.categoria.slug, subcategoria: negocio.subcategoria.slug })">{{ negocio.subcategoria.nombre }}</Link>
+            </h2>
+            <div class="whitespace-break-spaces p-3 bg-white rounded-md">{{ negocio.descripcion }}</div>
 
             <div class="grid md:grid-cols-2 grid-cols-1 gap-4 my-10">
                 <div>
                     <div class="px-0">
                         <h3 class="text-xl font-semibold leading-7 text-gray-900 garamond">Información General</h3>
                     </div>
-                    <div class="mt-6 border-t border-gray-100">
-                        <dl class="divide-y divide-gray-100">
+                    <div class="mt-6 border-t border-orange-300">
+                        <dl class="divide-y divide-purple-300">
                             <div class="py-6 sm:grid sm:grid-cols-3 sm:gap-4 px-0">
                                 <dt class="font-medium leading-6 text-gray-900">Horario</dt>
                                 <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ negocio.horario }}<br>{{ negocio.horario_fin }}</dd>
@@ -84,7 +78,7 @@ library.add({ faWhatsapp, faFacebook, faTwitter, faTiktok, faInstagram })
                     <div class="px-0">
                         <h3 class="text-xl font-semibold leading-7 text-gray-900 garamond">Ubicación</h3>
                     </div>
-                    <div class="mt-6 border-t border-gray-100">
+                    <div class="mt-6 border-t border-orange-300">
                         <dl class="divide-y divide-gray-100">
                             <div class="sm:py-6 px-0">
                                 <a :href="`https://www.google.com/maps/search/?api=1&query=${parseFloat(negocio.latitude)}%2C${parseFloat(negocio.longitude)}`" target="_blank">
@@ -128,12 +122,6 @@ export default {
             };
             if (this.negocio.foto3 != null && this.negocio.foto3 != '') {
                 photos[2] = this.negocio.foto3;
-            };
-            if (this.negocio.foto4 != null && this.negocio.foto2 != '') {
-                photos[3] = this.negocio.foto4;
-            };
-            if (this.negocio.foto5 !== null && this.negocio.foto5 != '') {
-                photos[4] = this.negocio.foto5;
             };
             return photos;
         }

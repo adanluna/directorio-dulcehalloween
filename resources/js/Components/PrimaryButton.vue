@@ -5,22 +5,18 @@ defineProps({
         type: String,
         default: '',
     },
-    color:{
+    color: {
         type: String,
         default: '#000',
     },
-    bgcolor:{
+    bgcolor: {
         type: String,
         default: '#fff',
     }
 });
 </script>
 <template>
- <Link
-        :href="href"
-        :disabled="disabled"
-        class="text-base inline-flex px-6 py-1 items-center rounded-r-full" :style="'background-color: '+bgcolor+';color:'+color+';'"
-    >
-        <slot/>
+    <Link :href="href" :disabled="disabled" class="text-base inline-flex px-6 py-1 items-center rounded-full" :style="'background-color: ' + bgcolor + ';color:' + color + ';'">
+    <slot />
     </Link>
 </template>

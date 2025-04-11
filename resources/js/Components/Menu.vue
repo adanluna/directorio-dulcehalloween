@@ -28,7 +28,8 @@ const props = defineProps({
                 </div>
                 <div class="hidden lg:block w-1/6">
                     <div class="flex items-center justify-end">
-                        <Link :href="route('inscripcion')" class="text-xl back-purple inline-block py-2 px-4 leading-5 text-white hover:bg-white hover:text-purple-800 font-medium rounded-md" href="#">Inscribe tu negocio</Link>
+                        <a :href="route('inscripcion')" class="px-6 py-3 text-lg font-medium text-white bg-gradient-to-br from-purple-600 to-purple-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Inscríbe tu negocio</a>
+
                     </div>
                 </div>
             </div>
